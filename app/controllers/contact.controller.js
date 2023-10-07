@@ -8,16 +8,13 @@ exports.create = async (req, res, next) => {
     }
 
     try {
-        console.log(req.body)
         const contactService = new ContactService(MongoDB.client);
         const document = await contactService.create(req.body);
         return res.send(document);
     } catch (error) {
-        return next(
-            new ApiError(500, "An error has occurred while creating the contact")
-        );
+        return next(new ApiError(500, "An error has occurred while creating the contact"))
     }
-};
+}
 
 exports.update = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
@@ -67,7 +64,7 @@ exports.deleteAll = async (_req, res, next) => {
 exports.findOne = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.findbyId(req.params.id);
+        const document = await contactService.findById(req.params.id);
         if (!document) {
             return next(new ApiError(404, "Contact not found"));
         }

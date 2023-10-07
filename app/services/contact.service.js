@@ -4,10 +4,11 @@ const { deleteAll } = require('../controllers/contact.controller');
 
 class ContactService {
     constructor(client) {
-        this.Contact = client.db().collection('contacts');
+        this.Contact = client.db().collection("contacts");
     }
 
     extractContactData(payload) {
+     
         const contact = {
             name: payload.name,
             email: payload.email,
@@ -15,8 +16,8 @@ class ContactService {
             phone: payload.phone,
             favorite: payload.favorite,
         };
-
-        Objects.keys(contact).forEach(
+       
+        Object.keys(contact).forEach(
             (key) => contact[key] === undefined && delete contact[key]
         );
         return contact;
@@ -40,7 +41,7 @@ class ContactService {
     async findByName(name) {
         return await this.find({
             name: { $regex: new RegExp(name), $options: "i" },
-            });
+        });
     }
 
     async findById(id) {
