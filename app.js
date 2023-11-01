@@ -13,6 +13,10 @@ app.use(express.urlencoded({
 
 const contactsRouter = require('./app/routes/contact.route');
 
+app.get("/", (req, res) => {
+    res.json({message: "Welcome to contact book application."});
+})
+
 app.use('/api/contacts', contactsRouter);
 
 app.use((req, res, next) => {
